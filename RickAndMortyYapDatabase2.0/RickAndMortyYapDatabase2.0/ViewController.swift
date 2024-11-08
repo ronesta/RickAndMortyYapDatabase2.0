@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import YapDatabase
 
 class ViewController: UIViewController {
 

@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A02A5E2B1191CE1CCB751FE0 /* Pods_RickAndMortyYapDatabase2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDCC43E18A164311A770F8FC /* Pods_RickAndMortyYapDatabase2_0.framework */; };
 		E1FE5B0A2CDE700C00360B07 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E1FE5B092CDE700C00360B07 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E1FE5AF02CDE6FDB00360B07 /* RickAndMortyYapDatabase2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = RickAndMortyYapDatabase2.0.app; path = "/Users/ronesta/Desktop/LearnSwift/RickAndMortyYapDatabase2.0/RickAndMortyYapDatabase2.0/build/Debug-iphoneos/RickAndMortyYapDatabase2.0.app"; sourceTree = "<absolute>"; };
+		954C52043797906D27DA35D9 /* Pods-RickAndMortyYapDatabase2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMortyYapDatabase2.0.release.xcconfig"; path = "Target Support Files/Pods-RickAndMortyYapDatabase2.0/Pods-RickAndMortyYapDatabase2.0.release.xcconfig"; sourceTree = "<group>"; };
+		D9B31C06ADF0C03EED6E0BE7 /* Pods-RickAndMortyYapDatabase2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMortyYapDatabase2.0.debug.xcconfig"; path = "Target Support Files/Pods-RickAndMortyYapDatabase2.0/Pods-RickAndMortyYapDatabase2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		E1FE5B272CDE89D700360B07 /* RickAndMortyYapDatabase2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyYapDatabase2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDCC43E18A164311A770F8FC /* Pods_RickAndMortyYapDatabase2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMortyYapDatabase2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -41,16 +45,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1FE5B0A2CDE700C00360B07 /* SnapKit in Frameworks */,
+				A02A5E2B1191CE1CCB751FE0 /* Pods_RickAndMortyYapDatabase2_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AA70FE5B699EB80E70C198C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FDCC43E18A164311A770F8FC /* Pods_RickAndMortyYapDatabase2_0.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69D458F9B0A927E19190D9DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D9B31C06ADF0C03EED6E0BE7 /* Pods-RickAndMortyYapDatabase2.0.debug.xcconfig */,
+				954C52043797906D27DA35D9 /* Pods-RickAndMortyYapDatabase2.0.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E1FE5AE72CDE6FDB00360B07 = {
 			isa = PBXGroup;
 			children = (
 				E1FE5AF22CDE6FDB00360B07 /* RickAndMortyYapDatabase2.0 */,
+				69D458F9B0A927E19190D9DA /* Pods */,
+				3AA70FE5B699EB80E70C198C /* Frameworks */,
+				E1FE5B272CDE89D700360B07 /* RickAndMortyYapDatabase2.0.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,9 +86,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1FE5B032CDE6FDC00360B07 /* Build configuration list for PBXNativeTarget "RickAndMortyYapDatabase2.0" */;
 			buildPhases = (
+				9BDDCB8214D8842B4FE51879 /* [CP] Check Pods Manifest.lock */,
 				E1FE5AEC2CDE6FDB00360B07 /* Sources */,
 				E1FE5AED2CDE6FDB00360B07 /* Frameworks */,
 				E1FE5AEE2CDE6FDB00360B07 /* Resources */,
+				6D91ABEF05382E6BC519DCD4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -77,7 +104,7 @@
 				E1FE5B092CDE700C00360B07 /* SnapKit */,
 			);
 			productName = RickAndMortyYapDatabase2.0;
-			productReference = E1FE5AF02CDE6FDB00360B07 /* RickAndMortyYapDatabase2.0.app */;
+			productReference = E1FE5B272CDE89D700360B07 /* RickAndMortyYapDatabase2.0.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,6 +154,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6D91ABEF05382E6BC519DCD4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RickAndMortyYapDatabase2.0/Pods-RickAndMortyYapDatabase2.0-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RickAndMortyYapDatabase2.0/Pods-RickAndMortyYapDatabase2.0-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RickAndMortyYapDatabase2.0/Pods-RickAndMortyYapDatabase2.0-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BDDCB8214D8842B4FE51879 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RickAndMortyYapDatabase2.0-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E1FE5AEC2CDE6FDB00360B07 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -140,12 +209,14 @@
 /* Begin XCBuildConfiguration section */
 		E1FE5B042CDE6FDC00360B07 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9B31C06ADF0C03EED6E0BE7 /* Pods-RickAndMortyYapDatabase2.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QYDD73WSAD;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RickAndMortyYapDatabase2.0/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -171,12 +242,14 @@
 		};
 		E1FE5B052CDE6FDC00360B07 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 954C52043797906D27DA35D9 /* Pods-RickAndMortyYapDatabase2.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QYDD73WSAD;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RickAndMortyYapDatabase2.0/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
