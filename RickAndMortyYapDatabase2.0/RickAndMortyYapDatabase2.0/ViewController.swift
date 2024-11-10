@@ -45,6 +45,27 @@ class ViewController: UIViewController {
     }
 
     private func getCharacters() {
+        DatabaseManager.shared.loadCharacters { [weak self] savedCharacters in
+            if let characters = savedCharacters {
+                self?.characters = characters
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            } else {
+                NetworkManager.shared.getCharacters { [weak self] result in
+                    switch result {
+                    case .success(let character):
+                        DispatchQueue.main.async {
+                            self?.characters = character
+                            self?.tableView.reloadData()
+                            DatabaseManager.shared.saveCharacters(character)
+                        }
+                    case .failure(let error):
+                        print("Failed to fetch drinks: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -61,6 +82,16 @@ extension ViewController: UITableViewDataSource {
         }
 
         let character = characters[indexPath.row]
+        let imageURL = character.image
+
+        ImageLoader.shared.loadImage(from: imageURL) { loadedImage in
+            DispatchQueue.main.async {
+                guard let cell = tableView.cellForRow(at: indexPath) as? CharacterTableViewCell  else {
+                    return
+                }
+                cell.configure(with: character, image: loadedImage)
+            }
+        }
 
         return cell
     }
