@@ -21,6 +21,7 @@ class DatabaseManager {
     private init() {
         do {
             database = try DatabaseManager.setupDatabase()
+            database.registerCodableSerialization(Character.self, forCollection: charactersCollection)
             connection = database.newConnection()
         } catch {
             fatalError("Failed to initialize YapDatabase with error: \(error)")
@@ -28,35 +29,31 @@ class DatabaseManager {
     }
 
     private static func setupDatabase() throws -> YapDatabase {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let baseDir = paths.first ?? NSTemporaryDirectory()
-        let databaseName = "database.sqlite"
-        let databasePath = (baseDir as NSString).appendingPathComponent(databaseName)
-        let databaseUrl = URL(fileURLWithPath: databasePath)
-
-        guard let databaseWithPath = YapDatabase(url: databaseUrl) else {
+        guard let baseDir = FileManager.default.urls(
+            for: .documentDirectory, in: .userDomainMask).first else {
             throw YapDatabaseError.databaseInitializationFailed
         }
 
-        return databaseWithPath
+        let databasePath = baseDir.appendingPathComponent("database.sqlite")
+
+        guard let database = YapDatabase(url: databasePath) else {
+            throw YapDatabaseError.databaseInitializationFailed
+        }
+
+        return database
     }
 
     func saveCharacter(_ character: Character, key: String) {
-        do {
-            let data = try JSONEncoder().encode(character)
-            connection.readWrite { transaction in
-                transaction.setObject(data, forKey: key, inCollection: charactersCollection)
+        connection.readWrite { transaction in
+            transaction.setObject(character, forKey: key, inCollection: charactersCollection)
 
-                var order = transaction.object(
-                    forKey: "order",
-                    inCollection: charactersOrderCollection) as? [String] ?? []
-                if !order.contains(key) {
-                    order.append(key)
-                    transaction.setObject(order, forKey: "order", inCollection: charactersOrderCollection)
-                }
+            var order = transaction.object(
+                forKey: "order",
+                inCollection: charactersOrderCollection) as? [String] ?? []
+            if !order.contains(key) {
+                order.append(key)
+                transaction.setObject(order, forKey: "order", inCollection: charactersOrderCollection)
             }
-        } catch {
-            print("Failed to encode character: \(error)")
         }
     }
 
@@ -69,13 +66,7 @@ class DatabaseManager {
     func loadCharacter(key: String) -> Character? {
         var character: Character?
         connection.read { transaction in
-            if let data = transaction.object(forKey: key, inCollection: charactersCollection) as? Data {
-                do {
-                    character = try JSONDecoder().decode(Character.self, from: data)
-                } catch {
-                    print("Failed to decode character: \(error)")
-                }
-            }
+            character = transaction.object(forKey: key, inCollection: charactersCollection) as? Character
         }
         return character
     }
@@ -83,16 +74,12 @@ class DatabaseManager {
     func loadAllCharacters() -> [Character] {
         var characters = [Character]()
         connection.read { transaction in
-            // Загружаем порядок ключей
             if let order = transaction.object(forKey: "order", inCollection: charactersOrderCollection) as? [String] {
                 for key in order {
-                    if let data = transaction.object(forKey: key, inCollection: charactersCollection) as? Data {
-                        do {
-                            let character = try JSONDecoder().decode(Character.self, from: data)
-                            characters.append(character)
-                        } catch {
-                            print("Failed to decode character for key \(key): \(error)")
-                        }
+                    if let character = transaction.object(
+                        forKey: key,
+                        inCollection: charactersCollection) as? Character {
+                        characters.append(character)
                     }
                 }
             }
