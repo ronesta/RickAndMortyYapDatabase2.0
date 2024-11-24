@@ -45,24 +45,23 @@ class ViewController: UIViewController {
     }
 
     private func getCharacters() {
-        DatabaseManager.shared.loadCharacters { [weak self] savedCharacters in
-            if let characters = savedCharacters {
-                self?.characters = characters
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            } else {
-                NetworkManager.shared.getCharacters { [weak self] result in
-                    switch result {
-                    case .success(let character):
-                        DispatchQueue.main.async {
-                            self?.characters = character
-                            self?.tableView.reloadData()
-                            DatabaseManager.shared.saveCharacters(character)
+        let savedCharacters = DatabaseManager.shared.loadAllCharacters()
+        if !savedCharacters.isEmpty {
+            self.characters = savedCharacters
+            self.tableView.reloadData()
+        } else {
+            NetworkManager.shared.getCharacters { [weak self] result in
+                switch result {
+                case .success(let characters):
+                    DispatchQueue.main.async {
+                        self?.characters = characters
+                        self?.tableView.reloadData()
+                        characters.forEach { character in
+                            DatabaseManager.shared.saveCharacter(character, key: "\(character.id)")
                         }
-                    case .failure(let error):
-                        print("Failed to fetch drinks: \(error.localizedDescription)")
                     }
+                case .failure(let error):
+                    print("Failed to fetch characters: \(error.localizedDescription)")
                 }
             }
         }
