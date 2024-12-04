@@ -50,6 +50,7 @@ class DatabaseManager {
             var order = transaction.object(
                 forKey: "order",
                 inCollection: charactersOrderCollection) as? [String] ?? []
+
             if !order.contains(key) {
                 order.append(key)
                 transaction.setObject(order, forKey: "order", inCollection: charactersOrderCollection)
@@ -65,6 +66,7 @@ class DatabaseManager {
 
     func loadCharacter(key: String) -> Character? {
         var character: Character?
+
         connection.read { transaction in
             character = transaction.object(forKey: key, inCollection: charactersCollection) as? Character
         }
@@ -73,6 +75,7 @@ class DatabaseManager {
 
     func loadAllCharacters() -> [Character] {
         var characters = [Character]()
+
         connection.read { transaction in
             if let order = transaction.object(forKey: "order", inCollection: charactersOrderCollection) as? [String] {
                 for key in order {
@@ -84,11 +87,13 @@ class DatabaseManager {
                 }
             }
         }
+
         return characters
     }
 
     func loadImage(key: String) -> Data? {
         var result: Data?
+
         connection.read { transaction in
             if let data = transaction.object(forKey: key, inCollection: imagesCollection) as? Data {
                 result = data
